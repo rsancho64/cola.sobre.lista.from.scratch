@@ -5,25 +5,29 @@ class cola:
     __data = []
     __maxSize = None  
 
-    def __init__(self, size):
+    def __init__(self, size = 10):
         self.__maxSize = size
 
-    def len(self) -> int: 
+    # def len(self) -> int: 
+    #     return len(self.__data)
+
+    def __len__(self):
         return len(self.__data)
 
     def __str__(self) -> str:
         answ = "<"
-        answ += f"{self.len()} de {self.__maxSize}, {self.__data}"
+        # answ += f"{self.len()} de {self.__maxSize}, {self.__data}"
+        answ += f"{len(self)} de {self.__maxSize}, {self.__data}"
         if self.esVacia(): answ += "VACIA"
         if self.esLlena(): answ += "LLENA"
         answ += ">"
         return answ
 
     def esVacia(self) -> bool:
-        return len(self.__data) == 0
+        return len(self) == 0
 
     def esLlena(self) -> bool:
-        return len(self.__data) == self.__maxSize
+        return len(self) == self.__maxSize
     
     def enqueue(self, something):
         if not self.esLlena():
@@ -31,8 +35,8 @@ class cola:
         else:
             raise OverflowError (f'queue: ya estoy llena')
 
-    def dqueue(self) -> object:
-        if len(self.__data) == 0:
+    def dequeue(self) -> object:
+        if len(self) == 0:
             raise ValueError (f'queue: esta vacia')
         else:
             item = self.__data[0]
@@ -57,28 +61,28 @@ if __name__ == "__main__":
         c.enqueue(44)
         print(c)
 
-        c.enqueue(55)
-        print(c)
+        # c.enqueue(55)
+        # print(c)
+
+        item = c.dequeue()
+        print(item, c)
+
+        item = c.dequeue()
+        print(item, c)
+
+        item = c.dequeue()
+        print(item, c)
+
+        item = c.dequeue()
+        print(item, c)
+
+        item = c.dequeue()
+        print(item, c)
+
+        print("FINAL DEL TRY")
 
     except OverflowError:
         print("no entro, estaba llena")
-
-    print(c)
-
-    item = c.dqueue()
-    print(item, c)
-
-    item = c.dqueue()
-    print(item, c)
-
-    item = c.dqueue()
-    print(item, c)
-
-    item = c.dqueue()
-    print(item, c)
-
-    try:
-        item = c.dqueue()
-        print(item, c)
     except ValueError:
-        print("estaba vacia")
+        print("nada sale, estaba vacia")
+
